@@ -35,7 +35,7 @@ window.addEventListener('message', async e => {
    break;
   }
  }
-
+ console.log(video_mp4_array);
  console.log(video_m3u8_array);
 
  for (let idx of [1, 0, 2, 3, 4])
