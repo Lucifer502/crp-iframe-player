@@ -83,10 +83,7 @@ window.addEventListener('message', async e => {
   }
 
   async function m3u8ListFromStream(url) {
-    return new Promise((resolve, reject) => {
-
-      resolve(url)
-
-    })
+  let m3u8list = [];
+    return [url]
   }
 })
