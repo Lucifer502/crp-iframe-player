@@ -66,14 +66,15 @@ window.addEventListener('message', async e => {
  console.log(sources)
 
  jwplayer().on("ready", e => {
-  localStorage.setItem("video_id", video_id)
-
   let position = jwplayer().getPosition();
   let duration = jwplayer().getDuration();
 
   if (localStorage.getItem("video_id") != video_id) {
    jwplayer().play();
   }
+
+
+  localStorage.setItem("video_id", video_id)
 
   document.body.querySelector(".loading_container").style.display = "none";
  })
