@@ -65,13 +65,14 @@ window.addEventListener('message', async e => {
 
  console.log(sources)
 
+ jwplayer().on("ready", e => {
  let autoplay = localStorage.getItem("autoplay");
  let id = localStorage.setItem("id", video_id);
 
- jwplayer().on("ready", e => {
+ console.log(id)
+ console.log(video_id)
 
   if (autoplay == "true" && id != video_id) {
-   localStorage.setItem("autoplay", false)
    jwplayer().play
   }
 
