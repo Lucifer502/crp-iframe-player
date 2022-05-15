@@ -8,6 +8,7 @@ window.addEventListener('message', async e => {
  let allorigins = "https://crp-proxy.herokuapp.com/get?url=";
 
  let video_config_media = e.data.video_config_media;
+ let video_id = video_config_media['metadata'][id];
  let next_enable = e.data.next_enable;
  let user_lang = e.data.user_lang;
  let video_stream_url = "";
@@ -65,13 +66,13 @@ window.addEventListener('message', async e => {
  console.log(sources)
 
  jwplayer().on("ready", e => {
-  if (localStorage.getItem("autoplay") == "true") {
-   localStorage.setItem("autoplay", false)
-   jwplayer().play();
-  }
+  localStorage.setItem("video_id", video_id)
 
-  if (next_enable) {
-   localStorage.setItem("autoplay", true)
+  let position = jwplayer().getPosition();
+  let duration = jwplayer().getDuration();
+
+  if (localStorage.getItem("video_id") != video_id) {
+   jwplayer().play();
   }
 
   document.body.querySelector(".loading_container").style.display = "none";
