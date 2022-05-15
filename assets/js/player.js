@@ -83,7 +83,6 @@ window.addEventListener('message', async e => {
  }
 
  async function m3u8ListFromStream(url) {
-  return new Promise((resolve, reject) => {
    let m3u8list = []
    const master_m3u8 = await getAllOrigins(url);
 
@@ -98,8 +97,6 @@ window.addEventListener('message', async e => {
     m3u8list[i] = blobStream(video_m3u8);
    }
    res.push(buildM3u8(m3u8list));
-   resolve(res)
-  })
  }
 
  function blobStream(stream) {
