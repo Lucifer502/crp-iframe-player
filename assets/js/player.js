@@ -63,7 +63,6 @@ window.addEventListener('message', async e => {
   "playbackRateControls": [0.5, 0.75, 1, 1.25, 1.5, 2]
  }).on("ready", e => {
 
-  localStorage.setItem("id", video_id)
 
  })
 
@@ -74,11 +73,13 @@ window.addEventListener('message', async e => {
   console.log(localStorage.getItem("id"))
 
   if (video_id != localStorage.getItem("id")) {
-console.log(video_id);
+   console.log(video_id);
   }
 
   let position = jwplayer().getPosition();
   let duration = jwplayer().getDuration();
+
+  localStorage.setItem("id", video_id)
 
   document.body.querySelector(".loading_container").style.display = "none";
  })
