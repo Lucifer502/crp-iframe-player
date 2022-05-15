@@ -84,6 +84,6 @@ window.addEventListener('message', async e => {
 
   async function m3u8ListFromStream(url) {
   let m3u8list = [];
-    return [url]
+    return [url,url]
   }
 })
