@@ -35,6 +35,8 @@ window.addEventListener('message', async e => {
   }
  }
 
+ console.log(video_m3u8_array);
+
  for (let idx of [1, 0, 2, 3, 4])
   sources.push({
    "file": video_m3u8_array[idx],
@@ -53,8 +55,11 @@ window.addEventListener('message', async e => {
         ]
  })
 
- if (next_enable)
+ console.log(sources)
+
+ if (next_enable) {
   localStorage.setItem("autoplay", true)
+ }
 
  jwplayer().on("ready", e => {
   if (localStorage.getItem("autoplay") == "true") {
