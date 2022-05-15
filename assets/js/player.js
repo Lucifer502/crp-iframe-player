@@ -65,15 +65,24 @@ window.addEventListener('message', async e => {
 
  console.log(sources)
 
+ let autoplay = localStorage.getItem("autoplay");
+ let id = localStorage.setItem("id", video_id);
+
  jwplayer().on("ready", e => {
+
+  if (autoplay == "true" && id != video_id) {
+   localStorage.setItem("autoplay", false)
+   jwplayer().play
+  }
+
+  if (next_enable) {
+   localStorage.setItem("autoplay", true)
+  }
+
+
   let position = jwplayer().getPosition();
   let duration = jwplayer().getDuration();
 
-  if (localStorage.getItem("video_id") != video_id) {
-   jwplayer().play();
-  }
-
-  localStorage.setItem("video_id", video_id)
 
   document.body.querySelector(".loading_container").style.display = "none";
  })
