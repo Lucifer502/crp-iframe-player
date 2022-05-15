@@ -20,7 +20,7 @@ window.addEventListener('message', async e => {
  const streamlist = video_config_media["streams"];
  for (let stream of streamlist) {
   if (stream.format == "trailer_hls" && hardsub_lang == user_lang) {
-   video_mp4_array = getDirectFile(stream.url);
+   video_mp4_array.push(getDirectFile(stream.url));
    rows_number++
    if (rows_number > 4) {
     video_m3u8_array = video_mp4_array;
