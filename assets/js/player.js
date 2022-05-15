@@ -52,38 +52,45 @@ window.addEventListener('message', async e => {
     "title": video_config_media['metadata']['title'],
     "image": video_config_media['thumbnail']['url'],
     "sources": sources,
-        },
-        ]
+        }],
+  "width": "100%",
+  "height": "100%",
+  "autostart": false,
+  "displayPlaybackLabel": true,
+  "primary": "html5",
+  "cast": {},
+  "playbackRateControls": [0.5, 0.75, 1, 1.25, 1.5, 2]
  })
 
  console.log(sources)
 
- if (next_enable) {
-  localStorage.setItem("autoplay", true)
- }
-
  jwplayer().on("ready", e => {
   if (localStorage.getItem("autoplay") == "true") {
+   localStorage.setItem("autoplay", true)
    jwplayer().play();
+  }
+
+  if (next_enable) {
+   localStorage.setItem("autoplay", true)
   }
 
   document.body.querySelector(".loading_container").style.display = "none";
  })
 
  function getAllOrigins(url) {
-    return new Promise(async (resolve, reject) => {
-      await $.ajax({
-        async: true,
-        type: "GET",
-        url: allorigins + encodeURIComponent(url),
-        responseType: 'json'
-      })
-      .then(res=>{
-        resolve(res.contents ?? res)
-      })
-      .catch(err=>reject(err));
+  return new Promise(async (resolve, reject) => {
+   await $.ajax({
+     async: true,
+     type: "GET",
+     url: allorigins + encodeURIComponent(url),
+     responseType: 'json'
     })
-  }
+    .then(res => {
+     resolve(res.contents ?? res)
+    })
+    .catch(err => reject(err));
+  })
+ }
 
  function getDirectFile(url) {
   return url.replace(/\/clipFrom.*?index.m3u8/, '').replace('_,', '_').replace(url.split("/")[2], "fy.v.vrv.co");
@@ -104,7 +111,7 @@ window.addEventListener('message', async e => {
  }
 
  function m3u8ListFromStream(url) {
-    return new Promise(async (resolve, reject) => {
+  return new Promise(async (resolve, reject) => {
    let m3u8list = []
    const master_m3u8 = await getAllOrigins(url);
 
