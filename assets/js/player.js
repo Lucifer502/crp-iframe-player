@@ -69,6 +69,21 @@ window.addEventListener('message', async e => {
   document.body.querySelector(".loading_container").style.display = "none";
  })
 
+ function getAllOrigins(url) {
+    return new Promise(async (resolve, reject) => {
+      await $.ajax({
+        async: true,
+        type: "GET",
+        url: allorigins + encodeURIComponent(url),
+        responseType: 'json'
+      })
+      .then(res=>{
+        resolve(res.contents ?? res)
+      })
+      .catch(err=>reject(err));
+    })
+  }
+
  function getDirectFile(url) {
   return url.replace(/\/clipFrom.*?index.m3u8/, '').replace('_,', '_').replace(url.split("/")[2], "fy.v.vrv.co");
  }
