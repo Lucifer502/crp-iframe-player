@@ -61,25 +61,17 @@ window.addEventListener('message', async e => {
   "primary": "html5",
   "cast": {},
   "playbackRateControls": [0.5, 0.75, 1, 1.25, 1.5, 2]
+ }).on("ready", e => {
+
+  localStorage.setItem("id", video_id)
+
  })
 
  console.log(sources)
 
  jwplayer().on("ready", e => {
- let autoplay = localStorage.getItem("autoplay");
- let id = localStorage.setItem("id", video_id);
 
- console.log(id)
- console.log(video_id)
-
-  if (autoplay == "true" && id != video_id) {
-   jwplayer().play
-  }
-
-  if (next_enable) {
-   localStorage.setItem("autoplay", true)
-  }
-
+console.log(localStorage.getItem("id"))
 
   let position = jwplayer().getPosition();
   let duration = jwplayer().getDuration();
