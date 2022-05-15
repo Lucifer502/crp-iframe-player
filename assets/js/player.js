@@ -66,7 +66,7 @@ window.addEventListener('message', async e => {
 
  jwplayer().on("ready", e => {
   if (localStorage.getItem("autoplay") == "true") {
-   localStorage.setItem("autoplay", true)
+   localStorage.setItem("autoplay", false)
    jwplayer().play();
   }
 
