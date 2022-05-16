@@ -71,25 +71,21 @@ window.addEventListener('message', async e => {
  jwplayer().on("ready", e => {
 
   document.body.querySelector(".loading_container").style.display = "none";
-
-  if (next_enable) {
-
-   setInterval(() => {
-    state = jwplayer().getState();
-    if (state == "playing") {
-     position = jwplayer().getPosition();
-     duration = jwplayer().getDuration();
-     window.top.location = next;
-    }
-   })
-
-
-  }
  })
 
  setInterval(() => {
-  if (jwplayer().getState() == "playing")
+  if (jwplayer().getState() == "playing") {
    localStorage.setItem(video_id, jwplayer().getPosition());
+  }
+
+  if (next_enable) {
+   position = jwplayer().getPosition();
+   duration = jwplayer().getDuration();
+   state = jwplayer().getState();
+   if (state == "playing" && position == duration) {
+    window.top.location = next;
+   }
+  }
  })
 
  function getAllOrigins(url) {
