@@ -72,8 +72,9 @@ window.addEventListener('message', async e => {
 
   console.log(localStorage.getItem("id"))
 
-  if (localStorage.getItem("id") != null && id != localStorage.getItem("id")) {
+  if (localStorage.getItem("id") != null && video_id != localStorage.getItem("id")) {
    console.log(video_id);
+   jwplayer().play();
   }
 
   let position = jwplayer().getPosition();
