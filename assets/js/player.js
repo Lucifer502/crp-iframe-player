@@ -77,7 +77,7 @@ window.addEventListener('message', async e => {
   position = jwplayer().getPosition();
   duration = jwplayer().getDuration();
   state = jwplayer().getState();
-  if (state == "playing" && position == duration) {
+  if (state == "complete" && position == duration) {
    window.top.location = next;
   }
  })
