@@ -63,6 +63,7 @@ window.addEventListener('message', async e => {
   "playbackRateControls": [0.5, 0.75, 1, 1.25, 1.5, 2]
  }).on("ready", e => {
 
+
  })
 
  console.log(sources)
@@ -71,15 +72,24 @@ window.addEventListener('message', async e => {
 
   document.body.querySelector(".loading_container").style.display = "none";
 
+  if (next_enable) {
+
+   setInterval(() => {
+    state = jwplayer().getState();
+    if (state == "playing") {
+     position = jwplayer().getPosition();
+     duration = jwplayer().getDuration();
+     window.top.location = next;
+    }
+   })
+
+
+  }
  })
 
  setInterval(() => {
   if (jwplayer().getState() == "playing")
    localStorage.setItem(video_id, jwplayer().getPosition());
-
-  if(jwplayer().getPositon() == jwplayer().getDuration()
-   if(next_enable)
-   window.top.location = next;
  })
 
  function getAllOrigins(url) {
