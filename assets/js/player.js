@@ -72,7 +72,7 @@ window.addEventListener('message', async e => {
 
   console.log(localStorage.getItem("id"))
 
-  if (video_id != localStorage.getItem("id")) {
+  if (localStorage.getItem("id") != null) {
    console.log(video_id);
   }
 
