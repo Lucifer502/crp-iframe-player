@@ -74,17 +74,11 @@ window.addEventListener('message', async e => {
  })
 
  setInterval(() => {
-  if (jwplayer().getState() == "playing") {
-   localStorage.setItem(video_id, jwplayer().getPosition());
-  }
-
-  if (next_enable) {
-   position = jwplayer().getPosition();
-   duration = jwplayer().getDuration();
-   state = jwplayer().getState();
-   if (state == "playing" && position == duration) {
-    window.top.location = next;
-   }
+  position = jwplayer().getPosition();
+  duration = jwplayer().getDuration();
+  state = jwplayer().getState();
+  if (state == "playing" && position == duration) {
+   window.top.location = next;
   }
  })
 
