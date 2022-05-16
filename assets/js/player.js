@@ -74,12 +74,12 @@ window.addEventListener('message', async e => {
 
   if (localStorage.getItem("id") != null && video_id != localStorage.getItem("id")) {
    console.log(video_id);
+   console.log(localStorage.getItem("id"));
    jwplayer().play();
   }
 
   let position = jwplayer().getPosition();
   let duration = jwplayer().getDuration();
-
   localStorage.setItem("id", video_id)
 
   document.body.querySelector(".loading_container").style.display = "none";
