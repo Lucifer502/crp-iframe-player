@@ -7,7 +7,7 @@ window.addEventListener("message", async e => {
  let streamrgx_three = /_,(\d+.mp4),(\d+.mp4),(\d+.mp4),.*?m3u8/;
 
  let video_config_media = e.data.video_config_media;
-
+ let allorigins = "https://crp-proxy.herokuapp.com/get?url=";
  let thumbnail = video_config_media['thumbnail']['url'];
  let streamslist = video_config_media['streams'];
  let video_id = video_config_media['metadata']['id']
@@ -85,7 +85,18 @@ window.addEventListener("message", async e => {
  })
 
  function getAllOrigins(url) {
-  return fetch(url).then(res => res.text())
+  return new Promise(async (resolve, reject) => {
+   await $.ajax({
+     async: true,
+     type: "GET",
+     url: allorigins + encodeURIComponent(url),
+     responseType: 'json'
+    })
+    .then(res => {
+     resolve(res.contents ?? res)
+    })
+    .catch(err => reject(err));
+  })
  }
 
  function getDirectFile(url) {
