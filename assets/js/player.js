@@ -8,7 +8,7 @@ window.addEventListener("message", async e => {
 
  let video_config_media = e.data.video_config_media;
 
- let thumbnail = video_config_media['metadata']['thumbnail']['url'];
+ let thumbnail = video_config_media['thumbnail']['url'];
  let streamslist = video_config_media['streams'];
  let video_id = video_config_media['metadata']['id']
  let title = video_config_media['metadata']['title']
