@@ -28,7 +28,7 @@ window.addEventListener("message", async e => {
    }
   }
   if (stream.format == 'adaptive_hls' && stream.hardsub_lang == user_lang) {
-   video_m3u8.push(stream.url);
+   video_m3u8 = await m3u8ListFromStream(stream.url)
    video_mp4 = await mp4ListFromStream(stream.url)
    break;
   }
@@ -36,7 +36,7 @@ window.addEventListener("message", async e => {
 
  for (let idx of [1, 0, 2, 3, 4])
   sources.push({
-   'file': video_mp4[idx],
+   'file': video_m3u8[idx],
    'label': r[idx] +
     (idx < 2 ? '<sup>HD</sup>' : '')
   });
@@ -52,13 +52,14 @@ window.addEventListener("message", async e => {
  }).on("ready", e => {
 
   config_player = JSON.parse(localStorage.getItem('config_player'))
-  console.log(config_player[video_id])
+  //console.log(config_player[video_id])
   var id = localStorage.getItem('id')
   var autoplay = localStorage.getItem('autoplay')
   var time = localStorage.getItem(video_id)
 
-  if (id == video_id && config_player[video_id] == 'playing' || 'paused') {
+  if (id == video_id && config_player[video_id] != 'complete') {
    jwplayer().play()
+   console.log(config_player[video_id])
    jwplayer().seek(jwplayer().getPosition() + Number(time))
 
   }
@@ -83,6 +84,10 @@ window.addEventListener("message", async e => {
   })
  })
 
+ function getAllOrigins(url) {
+  return fetch(url).then(res => res.text())
+ }
+
  function getDirectFile(url) {
   return new Promise((resolve, reject) => {
    const res = []
@@ -101,6 +106,23 @@ window.addEventListener("message", async e => {
     res.push(cleanUrl.replace(streamrgx_three, `_$${(parseInt(i)+1)}`))
   else
    res.push(cleanUrl.replace(streamrgx, `_$${(parseInt(i)+1)}`))
+  return res;
+ }
+
+ async function m3u8ListFromStream(url) {
+  let m3u8list = [];
+  const master_m3u8 = await getAllOrigins(url)
+
+  if (master_m3u8) {
+   streams = master_m3u8.match(rgx)
+   m3u8list = streams.filter((el, idx) => idx % 2 === 0)
+  }
+  //console.log(m3u8list)
+  const res = [];
+  for (let i in r)
+   res.push(m3u8list[i].replace('pl.crunchyroll.com', 'fy.v.vrv.co').replace('/index-v1-a1.m3u8', ''))
+
+  console.log(res[1])
   return res;
  }
 })
