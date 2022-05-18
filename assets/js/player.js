@@ -36,7 +36,7 @@ window.addEventListener("message", async e => {
 
  for (let idx of [1, 0, 2, 3, 4])
   sources.push({
-   'file': video_m3u8[idx],
+   'file': video_mp4[idx],
    'label': r[idx] +
     (idx < 2 ? '<sup>HD</sup>' : '')
   });
