@@ -51,18 +51,9 @@ window.addEventListener("message", async e => {
   'displayPlaybackLabel': true
  }).on("ready", e => {
 
-  config_player = JSON.parse(localStorage.getItem('config_player'))
-  //console.log(config_player[video_id])
   var id = localStorage.getItem('id')
   var autoplay = localStorage.getItem('autoplay')
   var time = localStorage.getItem(video_id)
-
-  if (id == video_id && config_player[video_id] != 'complete') {
-   jwplayer().play()
-   console.log(config_player[video_id])
-   jwplayer().seek(jwplayer().getPosition() + Number(time))
-
-  }
 
   if (autoplay == 'true' && id != video_id) {
    jwplayer().play();
@@ -73,11 +64,6 @@ window.addEventListener("message", async e => {
    position = jwplayer().getPosition()
    duration = jwplayer().getDuration()
    state = jwplayer().getState()
-
-   if (state == 'playing')
-    localStorage.setItem(video_id, position);
-
-   localStorage.setItem('config_player', `{"${video_id}":"${state}"}`)
 
    if (next_enable && state == 'complete') localStorage.setItem('autoplay', 'true')
    localStorage.setItem('id', video_id);
