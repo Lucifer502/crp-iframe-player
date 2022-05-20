@@ -1,10 +1,6 @@
 window.addEventListener("message", async e => {
 
- const promises = [],
-  request = [];
  const r = { 0: '720p', 1: '1080p', 2: '480p', 3: '360p', 4: '240p' };
- for (let i in r)
-  promises[i] = new Promise((resolve) => request[i] = { resolve })
 
  let streamrgx = /_,(\d+.mp4),(\d+.mp4),(\d+.mp4),(\d+.mp4),(\d+.mp4),.*?m3u8/;
  let streamrgx_three = /_,(\d+.mp4),(\d+.mp4),(\d+.mp4),.*?m3u8/;
@@ -39,16 +35,25 @@ window.addEventListener("message", async e => {
    rows_number++;
    if (rows_number > 4) {
     video_m3u8_array = video_mp4_array;
-    for (let i in r) {
-     request[i].resolve()
-    }
    }
   }
 
   if (stream.format == 'adaptive_hls' && stream.hardsub_lang == user_lang) {
    video_stream_url = stream.url
    video_m3u8_array = await m3u8ListFromStream(video_stream_url)
+   video_mp4_array = mp4ListFromStream(video_stream_url)
    break;
+  }
+ }
+
+ if (video_m3u8_array) {
+  for (let idx of [1, 0, 2, 3, 4]) {
+   sources.push({
+    'file': video_m3u8_array[idx],
+    'label': r[idx] +
+     (idx < 2 ? '<sup>HD</sup>' : '')
+   })
+   dlUrl[idx].href = video_mp4_array[id]
   }
  }
 
@@ -56,13 +61,17 @@ window.addEventListener("message", async e => {
  playerInstance.setup({
   'playlist': [{
    'title': title,
-   'file': video_m3u8_array,
+   'sources': sources,
    'image': thumbnail,
  }]
- }).on('ready', e => {
+ }).on('playlistItem', e => {
+
+ })
+
+
+ jwplayer().on('ready', e => {
   document.body.querySelector(".loading_container").style.display = "none";
  });
-
 
  function getAllOrigins(url) {
   return new Promise(async (resolve, reject) => {
@@ -79,6 +88,21 @@ window.addEventListener("message", async e => {
   })
  }
 
+ function getDirectFile() {
+  return url.replace(/\/clipFrom.*?index.m3u8/, '').replace('_,', '_').replace(url.split("/")[2], "fy.v.vrv.co");
+ }
+
+ function mp4ListFromStream() {
+  const cleanUrl = url.replace('evs1', 'evs').replace(url.split("/")[2], "fy.v.vrv.co");
+  const res = [];
+  for (let i in r)
+   if (streamrgx_three.test(cleanUrl) && i <= 2)
+    res.push(cleanUrl.replace(streamrgx_three, `_$${(parseInt(i)+1)}`))
+  else
+   res.push(cleanUrl.replace(streamrgx, `_$${(parseInt(i)+1)}`))
+  return res;
+ }
+
  function m3u8ListFromStream(url) {
   return new Promise(async (resolve) => {
    let m3u8list = []
@@ -89,14 +113,35 @@ window.addEventListener("message", async e => {
     m3u8list = streams.filter((el, idx) => idx % 2 === 0)
    }
 
-   const response = await getAllOrigins(m3u8list[0])
-   let link = response.match(rgx)
-   //console.log(link[0])
-   //console.log(link[1])
-
-   let video = link[0].replace(/\/encryption.key.*$/gm, '?').replace(link[0].split('/')[2],'fy.v.vrv.co')
-   console.log(video)
-   resolve(video)
+   const res = [];
+   for (let i in m3u8list) {
+    const video_m3u8 = await getAllOrigins(m3u8list[i]);
+    m3u8list[i] = blobStream(video_m3u8);
+   }
+   res.push(buildM3u8(m3u8list));
+   return res;
   })
+ }
+
+ function blobStream(stream) {
+  const blob = new Blob([stream], {
+   type: "text/plain; charset=utf-8"
+  });
+  return URL.createObjectURL(blob) + "#.m3u8";
+ }
+
+ function buildM3u8(m3u8list) {
+  const video_m3u8 = '#EXTM3U' +
+   '\n#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=4112345,RESOLUTION=1280x720,FRAME-RATE=23.974,CODECS="avc1.640028,mp4a.40.2"' +
+   '\n' + m3u8list[0] +
+   '\n#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=8098235,RESOLUTION=1920x1080,FRAME-RATE=23.974,CODECS="avc1.640028,mp4a.40.2"' +
+   '\n' + m3u8list[1] +
+   '\n#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=2087088,RESOLUTION=848x480,FRAME-RATE=23.974,CODECS="avc1.4d401f,mp4a.40.2"' +
+   '\n' + m3u8list[2] +
+   '\n#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=1090461,RESOLUTION=640x360,FRAME-RATE=23.974,CODECS="avc1.4d401e,mp4a.40.2"' +
+   '\n' + m3u8list[3] +
+   '\n#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=559942,RESOLUTION=428x240,FRAME-RATE=23.974,CODECS="avc1.42c015,mp4a.40.2"' +
+   '\n' + m3u8list[4];
+  return blobStream(video_m3u8);
  }
 })
