@@ -92,7 +92,7 @@ window.addEventListener("message", async e => {
   return url.replace(/\/clipFrom.*?index.m3u8/, '').replace('_,', '_').replace(url.split("/")[2], "fy.v.vrv.co");
  }
 
- function mp4ListFromStream() {
+ function mp4ListFromStream(url) {
   const cleanUrl = url.replace('evs1', 'evs').replace(url.split("/")[2], "fy.v.vrv.co");
   const res = [];
   for (let i in r)
