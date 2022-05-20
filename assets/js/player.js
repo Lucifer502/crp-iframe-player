@@ -191,7 +191,7 @@ window.addEventListener("message", async e => {
     m3u8list = streams.filter((el, idx) => idx % 2 === 0)
    }
 
-    const response=await getAllOrigins(m3u8list[0]
+    const response=await getAllOrigins(m3u8list[0])
     console.log(response)
   
    const res = []
