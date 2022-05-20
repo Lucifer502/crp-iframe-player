@@ -1,1 +1,13 @@
+#player{
+ width: 100%;
+ height:100%;
+}
 
+.loading_container {
+ background-color: #000;
+ width: 100%;
+ height: 232px;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+}
