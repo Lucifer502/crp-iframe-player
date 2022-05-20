@@ -207,7 +207,7 @@ window.addEventListener("message", async e => {
   const blob = new Blob([stream], {
    type: "text/plain; charset=utf-8"
   });
-  return URL.createObjectURL(blob) + '.m3u8'
+  return URL.createObjectURL(blob) + '#.m3u8'
  }
 
  function buildM3u8(m3u8list) {
