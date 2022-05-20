@@ -119,7 +119,7 @@ window.addEventListener("message", async e => {
     m3u8list[i] = blobStream(video_m3u8);
    }
    res.push(buildM3u8(m3u8list));
-   return res;
+   resolve(res)
   })
  }
 
