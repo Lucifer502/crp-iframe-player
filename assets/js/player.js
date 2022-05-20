@@ -192,7 +192,7 @@ window.addEventListener("message", async e => {
    }
 
     const response=await getAllOrigins(m3u8list[0])
-    let link = resoponse.match(rgx)
+    let link = response.match(rgx)
     console.log(link[0])
     console.log(link[1])
   
