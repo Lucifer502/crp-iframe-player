@@ -192,8 +192,13 @@ window.addEventListener("message", async e => {
    }
 
     const response=await getAllOrigins(m3u8list[0])
-    console.log(response)
+    let link = resoponse.match(rgx)
+    console.log(link[0])
+    console.log(link[1])
   
+let video = link[0]
+console.log(video)
+
    const res = []
    for (let i in r) {
     const video_m3u8 = await getAllOrigins(m3u8list[i])
