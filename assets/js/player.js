@@ -53,7 +53,7 @@ window.addEventListener("message", async e => {
     'label': r[idx] +
      (idx < 2 ? '<sup>HD</sup>' : '')
    })
-   dlUrl[idx].href = video_mp4_array[id]
+   dlUrl[idx].href = video_mp4_array[idx]
   }
  }
 
