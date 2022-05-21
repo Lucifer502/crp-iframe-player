@@ -25,7 +25,9 @@ window.addEventListener('load', async e => {
   let playerInstance = jwplayer('player')
   playerInstance.setup({
    sources: sources,
-  })
+  }).on('ready',e=>{
+document.body.querySelector(".loading_container").style.display = "none";
+})
  }
 
 
