@@ -73,15 +73,15 @@ document.body.querySelector(".loading_container").style.display = "none";
  }
 
  async function m3u8ListFromStream(url) {
-  //const master_m3u8 = await getAllOrigins(url)
+  const master_m3u8 = await getAllOrigins(url)
 
 
-  let f = await fetch('https:\/\/pl.crunchyroll.com\/evs3\/5b88e67f12a0cae8d078be2d8c82abc5\/assets\/61cc3201a0b1207f505e0d092cb60954_,4434944.mp4,4434945.mp4,4434943.mp4,4434941.mp4,4434942.mp4,.urlset\/master.m3u8?Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cCo6Ly9wbC5jcnVuY2h5cm9sbC5jb20vZXZzMy81Yjg4ZTY3ZjEyYTBjYWU4ZDA3OGJlMmQ4YzgyYWJjNS9hc3NldHMvNjFjYzMyMDFhMGIxMjA3ZjUwNWUwZDA5MmNiNjA5NTRfLDQ0MzQ5NDQubXA0LDQ0MzQ5NDUubXA0LDQ0MzQ5NDMubXA0LDQ0MzQ5NDEubXA0LDQ0MzQ5NDIubXA0LC51cmxzZXQvbWFzdGVyLm0zdTgiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE2NTMzMjE5NzR9fX1dfQ__&Signature=EEXFRKBtEl9kIXQSVFaf~O45gS9oKSM3yBZy1P6tAvmIkRDn5usPKx-08rn6hcIFCqhgejL4GhTYGgw3EV5zZ5JUGVKsXHpChIV2ynEwbYQBz5ZCA4rUwslaK-R7d7KIy-5-QekGy1Q5btQ2OFvKQ3PfaK~kEF-svpCzwSZIHP0rRd5qghulel41dY6H3V6T290AQCBbHDz5IBBDhe-MY0xzJ~x4KWW3MUN2iNZrhuxlLLkkKXKQMnvYc17N8bukcR0imKXRCdSzfgJWifjbxioUGHfSkRdpvSKkZGryi4kxZMeW0xIQ4IvpjpnMq0iytD6ZMgFkyVG0YAqWfPLL7g__&Key-Pair-Id=APKAJMWSQ5S7ZB3MF5VA').then(res => res.text())
+  //let f = await fetch('https:\/\/pl.crunchyroll.com\/evs3\/5b88e67f12a0cae8d078be2d8c82abc5\/assets\/61cc3201a0b1207f505e0d092cb60954_,4434944.mp4,4434945.mp4,4434943.mp4,4434941.mp4,4434942.mp4,.urlset\/master.m3u8?Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cCo6Ly9wbC5jcnVuY2h5cm9sbC5jb20vZXZzMy81Yjg4ZTY3ZjEyYTBjYWU4ZDA3OGJlMmQ4YzgyYWJjNS9hc3NldHMvNjFjYzMyMDFhMGIxMjA3ZjUwNWUwZDA5MmNiNjA5NTRfLDQ0MzQ5NDQubXA0LDQ0MzQ5NDUubXA0LDQ0MzQ5NDMubXA0LDQ0MzQ5NDEubXA0LDQ0MzQ5NDIubXA0LC51cmxzZXQvbWFzdGVyLm0zdTgiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE2NTMzMjE5NzR9fX1dfQ__&Signature=EEXFRKBtEl9kIXQSVFaf~O45gS9oKSM3yBZy1P6tAvmIkRDn5usPKx-08rn6hcIFCqhgejL4GhTYGgw3EV5zZ5JUGVKsXHpChIV2ynEwbYQBz5ZCA4rUwslaK-R7d7KIy-5-QekGy1Q5btQ2OFvKQ3PfaK~kEF-svpCzwSZIHP0rRd5qghulel41dY6H3V6T290AQCBbHDz5IBBDhe-MY0xzJ~x4KWW3MUN2iNZrhuxlLLkkKXKQMnvYc17N8bukcR0imKXRCdSzfgJWifjbxioUGHfSkRdpvSKkZGryi4kxZMeW0xIQ4IvpjpnMq0iytD6ZMgFkyVG0YAqWfPLL7g__&Key-Pair-Id=APKAJMWSQ5S7ZB3MF5VA').then(res => res.text())
   //console.log(master_m3u8)
 
 
 
-  stream = f.match(rgx)
+  stream = master_m3u8.match(rgx)
   m3u8list = stream.filter((el, idx) => idx % 2 === 0)
   //console.log(m3u8list)
 
