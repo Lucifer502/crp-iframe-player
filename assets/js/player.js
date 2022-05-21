@@ -42,6 +42,7 @@ document.body.querySelector(".loading_container").style.display = "none";
     video_m3u8_array = await m3u8ListFromStream(stream.url)
     video_mp4_array = stream.url
     pushVideoM3u8()
+    break;
    }
   }
 
