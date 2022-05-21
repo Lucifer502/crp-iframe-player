@@ -1,7 +1,7 @@
-window.addEventListener('load', async e => {
+window.addEventListener('message', async e => {
 
-
-
+let video_config_media = e.data.video_config_media
+console.log(video_config_media)
 
 
 
@@ -11,20 +11,23 @@ window.addEventListener('load', async e => {
  let video_m3u8_array = []
  let video_mp4_array = [];
  let sources = []
- let video_config_media = {
-  'streams': [{
-   'format': 'adaptive_hls',
-   'url': 'https:\/\/pl.crunchyroll.com\/evs3\/1ffcabd99029abc6ce11b0b47c1a28bd\/assets\/1ffcabd99029abc6ce11b0b47c1a28bd_4485622.mp4\/clipFrom\/0000\/clipTo\/120000\/index.m3u8?Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cCo6Ly9wbC5jcnVuY2h5cm9sbC5jb20vZXZzMy8xZmZjYWJkOTkwMjlhYmM2Y2UxMWIwYjQ3YzFhMjhiZC9hc3NldHMvMWZmY2FiZDk5MDI5YWJjNmNlMTFiMGI0N2MxYTI4YmRfNDQ4NTYyMi5tcDQvY2xpcEZyb20vMDAwMC9jbGlwVG8vMTIwMDAwL2luZGV4Lm0zdTgiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE2NTMzMjMwMzR9fX1dfQ__&Signature=SGq5N~8UnjK5ikwUC1Cdzgh75Z-rvHUq~Bxsw7RH3eGVPOx9FSerCDQJhfPSywC8hlE8F7JZ1SlVwLNMK8mprg5dzBI165bcK~myztX2~fqHlAJfnMoDUK8mkDqQ~r1-xsFBMHsCJEW1KQqeqKGF5530Zo8LqkRqn1VpSzo4PBv9rVWl83Snn9D3bcKCP4nle9zg4YoUzSNO~ZMent0m56fltRUWhnp9pNjxnU5Dm87a-Co3LU0CtbN-6Bkq8-9GqxXG83nQGBlN4aBVZNGb51LCkjEuwhLAzGrK6bbTG80wcuLzy3qBgTX1MVZ-4tmcpcny07szktnhvdTcq-A4Qw__&Key-Pair-Id=APKAJMWSQ5S7ZB3MF5VA'
-  }]
- }
+ //let video_config_media = {
+  //'streams': [{
+   //'format': 'adaptive_hls',
+   //'url': 'https:\/\/pl.crunchyroll.com\/evs3\/1ffcabd99029abc6ce11b0b47c1a28bd\/assets\/1ffcabd99029abc6ce11b0b47c1a28bd_4485622.mp4\/clipFrom\/0000\/clipTo\/120000\/index.m3u8?Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cCo6Ly9wbC5jcnVuY2h5cm9sbC5jb20vZXZzMy8xZmZjYWJkOTkwMjlhYmM2Y2UxMWIwYjQ3YzFhMjhiZC9hc3NldHMvMWZmY2FiZDk5MDI5YWJjNmNlMTFiMGI0N2MxYTI4YmRfNDQ4NTYyMi5tcDQvY2xpcEZyb20vMDAwMC9jbGlwVG8vMTIwMDAwL2luZGV4Lm0zdTgiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE2NTMzMjMwMzR9fX1dfQ__&Signature=SGq5N~8UnjK5ikwUC1Cdzgh75Z-rvHUq~Bxsw7RH3eGVPOx9FSerCDQJhfPSywC8hlE8F7JZ1SlVwLNMK8mprg5dzBI165bcK~myztX2~fqHlAJfnMoDUK8mkDqQ~r1-xsFBMHsCJEW1KQqeqKGF5530Zo8LqkRqn1VpSzo4PBv9rVWl83Snn9D3bcKCP4nle9zg4YoUzSNO~ZMent0m56fltRUWhnp9pNjxnU5Dm87a-Co3LU0CtbN-6Bkq8-9GqxXG83nQGBlN4aBVZNGb51LCkjEuwhLAzGrK6bbTG80wcuLzy3qBgTX1MVZ-4tmcpcny07szktnhvdTcq-A4Qw__&Key-Pair-Id=APKAJMWSQ5S7ZB3MF5VA'
+  //}]
+ //}
 
  function startPlayer() {
   console.log(sources)
   let playerInstance = jwplayer('player')
   playerInstance.setup({
    sources:sources,
-  })
+  }).on('ready',e=>{
+document.body.querySelector(".loading_container").style.display = "none";
+})
  }
+
 
 
  getStreams(video_config_media['streams'])
