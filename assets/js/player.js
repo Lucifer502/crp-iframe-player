@@ -29,20 +29,24 @@ window.addEventListener('message', async e => {
   }
 
   const streamlist = video_config_media['streams'];
+  const hasUserLang = streamlist.find(stream => stream.hardsub_lang == user_lang);
+  const search_lang = hasUserLang ? user_lang : null;
+
   for (let stream of streamlist) {
-    if (stream.audio_lang == user_lang) {
-      console.log(stream)
-      video_mp4_array.push(await getDirectFile(stream.url));
-      console.log(video_mp4_array)
-      if (video_mp4_array.length > 4) {
-        video_m3u8_array = video_mp4_array;
-        for (let i in r) {
-          const idx = i;
-          setTimeout(() => request[idx].resolve(), 400);
+    if (stream.format == 'trailer_hls' && stream.hardsub_lang == search_lang)
+      if (rows_number <= 4) {
+        const arr_idx = (rows_number === 0 ? 2 : (rows_number === 2 ? 0 : rows_number));
+        video_mp4_array[arr_idx] = getDirectFile(stream.url);
+        rows_number++;
+        if (rows_number > 4) {
+          video_m3u8_array = video_mp4_array;
+          for (let i in r) {
+            const idx = i;
+            setTimeout(() => request[idx].resolve(), 400);
+          }
+          break;
         }
-        break;
       }
-    }
 
     if (stream.format == 'adaptive_hls' && stream.hardsub_lang == user_lang) {
       video_stream_url = stream.url;
@@ -71,7 +75,7 @@ window.addEventListener('message', async e => {
           dlSize[id].innerText = return_fileSize;
           return console.log(`Tamaño de: ${r[id]} (${return_fileSize})`);
         }
-      } else if (http.readyState == 4 && tentativas < 3)
+      } else if (http.readyState == 4 && intentos < 3)
         return setTimeout(() => setFileSize(id, intentos + 1), 5000);
     }
     http.open("HEAD", video_mp4_url, true);
@@ -81,13 +85,14 @@ window.addEventListener('message', async e => {
 
   Promise.all(promises).then(() => {
     for (let idx of [1, 0, 2, 3, 4]) {
-      sources.push({ file: video_m3u8_array[idx], label: r[idx] + (idx < 2 ? '<sup><sup>HD</sup></sup>' : '')});
+      sources.push({ file: video_m3u8_array[idx], label: r[idx] + (idx < 2 ? '<sup><sup>HD</sup></sup>' : '') });
       setFileSize(idx)
     }
     startPlayer();
   });
 
   function startPlayer() {
+    console.log(sources)
     let playerInstance = jwplayer("player")
     playerInstance.setup({
       "playlist": [
