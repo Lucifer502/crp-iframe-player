@@ -30,7 +30,7 @@ window.addEventListener('message', async e => {
 
   const streamlist = video_config_media['streams'];
   for (let stream of streamlist) {
-    if (stream.format == 'trailer_hls' && stream.hardsub_lang == user_lang || stream.hardsub_lang == null && stream.audio_lang == user_lang) {
+    if (stream.format == 'trailer_hls' && stream.hardsub_lang == nul && streamlist.length <= 25)
        console.log(stream)
       if (rows_number <= 4) {
         const arr_idx = (rows_number === 0 ? 2 : (rows_number === 2 ? 0 : rows_number));
@@ -45,7 +45,6 @@ window.addEventListener('message', async e => {
           break;
         }
       }
-    }
 
     if (stream.format == 'adaptive_hls' && stream.hardsub_lang == user_lang) {
       video_stream_url = stream.url;
