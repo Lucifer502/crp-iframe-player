@@ -30,21 +30,19 @@ window.addEventListener('message', async e => {
 
   const streamlist = video_config_media['streams'];
   for (let stream of streamlist) {
-    if (stream.format == 'trailer_hls' && stream.hardsub_lang == user_lang && stream.audio_lang == 'jaJP' || stream.audio_lang == user_lang && stream.hardsub_lang == null)
-       console.log(stream)
-      if (rows_number <= 4) {
-        const arr_idx = (rows_number === 0 ? 2 : (rows_number === 2 ? 0 : rows_number));
-        video_mp4_array[arr_idx] = getDirectFile(stream.url);
-        rows_number++;
-        if (rows_number > 4) {
-          video_m3u8_array = video_mp4_array;
-          for (let i in r) {
-            const idx = i;
-            setTimeout(() => request[idx].resolve(), 400);
-          }
-          break;
+    if (stream.audio_lang == user_lang) {
+      console.log(stream)
+      video_mp4_array.push(await getDirectFile(stream.url));
+      console.log(video_mp4_array)
+      if (video_mp4_array.length > 4) {
+        video_m3u8_array = video_mp4_array;
+        for (let i in r) {
+          const idx = i;
+          setTimeout(() => request[idx].resolve(), 400);
         }
+        break;
       }
+    }
 
     if (stream.format == 'adaptive_hls' && stream.hardsub_lang == user_lang) {
       video_stream_url = stream.url;
