@@ -31,6 +31,7 @@ window.addEventListener('message', async e => {
   const streamlist = video_config_media['streams'];
   for (let stream of streamlist) {
     if (stream.format == 'trailer_hls' && stream.hardsub_lang == user_lang)
+       console.log(stream)
       if (rows_number <= 4) {
         const arr_idx = (rows_number === 0 ? 2 : (rows_number === 2 ? 0 : rows_number));
         video_mp4_array[arr_idx] = getDirectFile(stream.url);
@@ -82,7 +83,7 @@ window.addEventListener('message', async e => {
 
   Promise.all(promises).then(() => {
     for (let idx of [1, 0, 2, 3, 4]) {
-      sources.push({ file: video_m3u8_array[idx], label: r[idx] + (idx < 2 ? '<sup><sup>HD</sup></sup>' : ''), type: video_m3u8_array[idx] });
+      sources.push({ file: video_m3u8_array[idx], label: r[idx] + (idx < 2 ? '<sup><sup>HD</sup></sup>' : '')});
       setFileSize(idx)
     }
     startPlayer();
