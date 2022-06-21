@@ -2,7 +2,6 @@ window.addEventListener('message', async e => {
 
   console.log(e.data)
 
-
   let streamrgx = /_,(\d+.mp4),(\d+.mp4),(\d+.mp4),(\d+.mp4),(\d+.mp4),.*?m3u8/;
   let r = { 0: '720p', 1: '1080p', 2: '480p', 3: '360p', 4: '240p' };
   let streamrgx_three = /_,(\d+.mp4),(\d+.mp4),(\d+.mp4),.*?m3u8/;
