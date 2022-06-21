@@ -1,1 +1,59 @@
 
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="player.css">
+  <link rel="stylesheet" href="modal.css">
+  <title>JW Player</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="jwplayer.js"></script>
+</head>
+
+<body>
+  <div class="loading-container">
+    <div class="loading-icon">
+      <svg width="30px" height="30px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" class="lds-rolling" style="background: none;">
+        <circle cx="50" cy="50" fill="none" ng-attr-stroke="{{config.color}}" ng-attr-stroke-width="{{config.width}}" ng-attr-r="{{config.radius}}" ng-attr-stroke-dasharray="{{config.dasharray}}" stroke="#ffffff" stroke-width="10" r="35" stroke-dasharray="164.93361431346415 56.97787143782138" transform="rotate(159.051 50 50)">
+          <animateTransform attributeName="transform" type="rotate" calcMode="linear" values="0 50 50;360 50 50" keyTimes="0;1" dur="1s" begin="0s" repeatCount="indefinite"></animateTransform>
+        </circle>
+      </svg>
+    </div>
+  </div>
+
+  <div class="modal">
+    <div class="box">
+      <a class="close">X</a>
+    </div>
+    <div class="download-item"> <span class="item quality">1080p</span> <span id="1080p_down_size" class="item size"> 0 MB</span> <a id="1080p_down_url" class="item down-icon" href=""></a>
+    </div>
+    <div class="download-item">
+      <span class="item quality">720p</span>
+      <span id="720p_down_size" class="item size">0 MB</span>
+      <a id="720p_down_url" class="item down-icon" href=""></a>
+    </div>
+    <div class="download-item">
+      <span class="item quality">480p</span>
+      <span id="480p_down_size" class="item size"> 0 MB</span>
+      <a id="480p_down_url" class="item down-icon" href=""></a>
+    </div>
+    <div class="download-item">
+      <span class="item quality">360</span>
+      <span id="360p_down_size" class="item size">0 MB</span>
+      <a id="360p_down_url" class="item down-icon" href=""></a>
+    </div>
+    <div class="download-item">
+      <span class="item quality">240p</span>
+      <span id="240p_down_size" class="item size">0 MB</span>
+      <a id="240p_down_url" class="item down-icon" href=""></a>
+    </div>
+  </div>
+
+  <div id="jwplayer"></div>
+
+  <script src="player.js"></script>
+</body>
+
+</html>
