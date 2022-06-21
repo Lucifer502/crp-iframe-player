@@ -1,1 +1,14 @@
 
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.loading-container {
+  background-color: #000;
+  width: 100vw;
+  height: 56.4vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
