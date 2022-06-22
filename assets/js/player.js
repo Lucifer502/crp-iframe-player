@@ -144,8 +144,8 @@ window.addEventListener('message', async e => {
       dlSize[id].innerText = fileSize;
       dlUrl[id].href = url;
     }
-    http.open('HEAD', url, true)
-    http.send(null)
+    http.open('HEAD', url, true);
+    http.send(null);
   }
 
   function getAllOrigins(url) {
