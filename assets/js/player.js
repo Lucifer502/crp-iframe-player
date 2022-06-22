@@ -41,7 +41,7 @@ window.addEventListener('message', async e => {
         }
       }
 
-    if (stream.format == 'adaptive_hls' && stream.hardsub_lang == user_lang) {
+    if (stream.format == 'adaptive_hls' && stream.hardsub_lang == search_lang) {
       video_stream_url = stream.url
       video_m3u8_array = await m3u8ListFromStream(video_stream_url);
       video_mp4_array = mp4ListFromStream(video_stream_url);
