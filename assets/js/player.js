@@ -125,6 +125,7 @@ window.addEventListener('message', async e => {
   })
 
   jwplayer().on('viewable', e => {
+    if(e.viewable == 1) {
     const old = document.querySelector('.jw-button-container > .jw-icon-rewind')
     if (!old) return
     const btn = query => document.querySelector(`div[button="${query}"]`)
@@ -132,6 +133,7 @@ window.addEventListener('message', async e => {
     btnContainer.insertBefore(btn(rewind_id), old)
     btnContainer.insertBefore(btn(forward_id), old)
     btnContainer.removeChild(old)
+    }
   })
 
   function setFileSize(url, id) {
