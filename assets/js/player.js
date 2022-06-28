@@ -107,8 +107,6 @@ window.addEventListener('message', async e => {
     .addButton(download_iconPath, download_tooltipText, download_ButtonClickAction, download_id);
 
   jwplayer().on('ready', e => {
-    document.querySelector('.loading-container').style.display = 'none'
-
     setInterval(() => {
       if (jwplayer().getState() == 'playing') localStorage.setItem(video_id, jwplayer().getPosition());
     });
@@ -122,6 +120,7 @@ window.addEventListener('message', async e => {
       localStorage.setItem('autoplay', 'false')
       jwplayer().play()
     }
+    document.querySelector('.loading-container').style.display = 'none';
   })
 
   jwplayer().on('viewable', e => {
