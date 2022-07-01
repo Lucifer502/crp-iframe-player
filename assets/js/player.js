@@ -67,6 +67,7 @@ window.addEventListener('message', async e => {
           rows_number++;
           if (rows_number > 4) {
             video_m3u8_array = video_mp4_array;
+            startPlayer();
             break;
           }
         }
