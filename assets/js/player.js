@@ -85,7 +85,7 @@ window.addEventListener('message', async e => {
   function startPlayer() {
     for (let id of [1, 0, 2, 3, 4]) {
       setFileSize(video_mp4_array[id], id)
-      sources.push({ file: video_m3u8_array[id], type: video_m3u8_array[id], label: r[id] })
+      sources.push({ file: video_m3u8_array[id], label: r[id] })
     }
     let playerInstance = jwplayer('jwplayer')
     playerInstance.setup({
